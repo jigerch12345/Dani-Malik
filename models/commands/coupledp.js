@@ -1,31 +1,74 @@
-//@SHAAN KHAN K
-////////////////////////////////////////////////////////
-/////// WARNING => JO CREDIT NAME CHANGE KREGA USKA ID BAN KAR DIYA JAYEGA + THIS BOT IS MADE BD Khan Rahul RK
 module.exports.config = {
-  name: "couple dp",
-  version: "1.0.0",
-  hasPermssion: 0,
-  credits: "SHAAN",
-  description: "Couple Dp photos",
-  commandCategory: "THIS BOT IS MADE BY PREM SHARMA",
-  usages: "cpl dp",
-  cooldowns: 2,
-  dependencies: {
-    "request":"",
-    "fs-extra":"",
-    "axios":""
-  }
-
+	name: "janu",
+	version: "1.0.1",
+	hasPermssion: 0,
+	credits: "Clarence-DK",
+	description: "",
+	commandCategory: "general",
+	usages: "text [text]",
+	cooldowns: 5,
+	dependencies: {
+		"canvas":"",
+		 "axios":"",
+		 "fs-extra":""
+	}
 };
 
-module.exports.run = async({api,event,args,Users,Threads,Currencies}) => {
-const axios = global.nodemodule["axios"];
-const request = global.nodemodule["request"];
-const fs = global.nodemodule["fs-extra"];
-    var link = [
-"https://i.imgur.com/g7woYNY.jpg","https://i.imgur.com/0jDiNmQ.jpg","https://i.imgur.com/3OX7sWP.jpg","https://i.imgur.com/IthNc1C.jpg","https://i.imgur.com/1RoN4la.jpg","https://i.imgur.com/vcfIO27.jpg","https://i.imgur.com/8yWRoMe.jpg","https://i.imgur.com/nku8dTF.jpg","https://i.imgur.com/V32qQb0.jpg","https://i.imgur.com/lkem5Gd.jpg","https://i.imgur.com/QIpV0AY.jpg","https://i.imgur.com/zdnDEtm.jpg","https://i.imgur.com/w7eKGSy.jpg","https://i.imgur.com/ONCJm5B.jpg","https://i.imgur.com/oQavLMr.jpg","https://i.imgur.com/MuBToNp.jpg","https://i.imgur.com/JrMY7j8.jpg","https://i.imgur.com/MauPoyi.jpg","https://i.imgur.com/t1B6vz1.jpg","https://i.imgur.com/VT200cX.jpg","https://i.imgur.com/9HTasfZ.jpg","https://i.imgur.com/waeDhYd.jpg","https://i.imgur.com/5dHsVO8.jpg","https://i.imgur.com/rrWIcrz.jpg","https://i.imgur.com/nEVUP1b.jpg","https://i.imgur.com/iHqdCMp.jpg","https://i.imgur.com/YHsbqM7.jpg","https://i.imgur.com/5ZQOCmT.jpg","https://i.imgur.com/AvoyQyk.jpg","https://i.imgur.com/MCuS0xn.jpg","https://i.imgur.com/c8yiwxR.jpg"
-     ];
-   /////// CREADIT NAME CHANGE KRNE WALE KI BEHAN Khan Rahul RK KI RAKHEL HOGI ////////////////////////////////
-     var callback = () => api.sendMessage({body:``,attachment: fs.createReadStream(__dirname + "/cache/1.jpg")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/1.jpg"));  
-      return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/1.jpg")).on("close",() => callback());
-   };
+module.exports.wrapText = (ctx, text, maxWidth) => {
+	return new Promise(resolve => {
+		if (ctx.measureText(text).width < maxWidth) return resolve([text]);
+		if (ctx.measureText('W').width > maxWidth) return resolve(null);
+		const words = text.split(' ');
+		const lines = [];
+		let line = '';
+		while (words.length > 0) {
+			let split = false;
+			while (ctx.measureText(words[0]).width >= maxWidth) {
+				const temp = words[0];
+				words[0] = temp.slice(0, -1);
+				if (split) words[1] = `${temp.slice(-1)}${words[1]}`;
+				else {
+					split = true;
+					words.splice(1, 0, temp.slice(-1));
+				}
+			}
+			if (ctx.measureText(`${line}${words[0]}`).width < maxWidth) line += `${words.shift()} `;
+			else {
+				lines.push(line.trim());
+				line = '';
+			}
+			if (words.length === 0) lines.push(line.trim());
+		}
+		return resolve(lines);
+	});
+} 
+
+module.exports.run = async function({ api, event, args }) {
+	let { senderID, threadID, messageID } = event;
+	const { loadImage, createCanvas } = require("canvas");
+	const fs = global.nodemodule["fs-extra"];
+	const axios = global.nodemodule["axios"];
+	let pathImg = __dirname + '/cache/markngu.png';
+	var text = args.join(" ");
+	if (!text) return api.sendMessage("Enter the content of the comment on the board", threadID, messageID);
+	let getPorn = (await axios.get(`https://imgur.com/k4YKpzx.jpg`, { responseType: 'arraybuffer' })).data;
+	fs.writeFileSync(pathImg, Buffer.from(getPorn, 'utf-8'));
+	let baseImage = await loadImage(pathImg);
+	let canvas = createCanvas(baseImage.width, baseImage.height);
+	let ctx = canvas.getContext("2d");
+	ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+	ctx.font = "400 45px Arial";
+	ctx.fillStyle = "#000000";
+	ctx.textAlign = "start";
+	let fontSize = 45;
+	while (ctx.measureText(text).width > 2250) {
+		fontSize--;
+		ctx.font = `400 ${fontSize}px Arial, sans-serif`;
+	}
+	const lines = await this.wrapText(ctx, text, 440);
+	ctx.fillText(lines.join('\n'), 100, 350);//comment
+	ctx.beginPath();
+	const imageBuffer = canvas.toBuffer();
+	fs.writeFileSync(pathImg, imageBuffer);
+return api.sendMessage({ attachment: fs.createReadStream(pathImg) }, threadID, () => fs.unlinkSync(pathImg), messageID);        
+           }
