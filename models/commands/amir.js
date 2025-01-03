@@ -13,15 +13,15 @@ module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
 	var { threadID, messageID } = event;
 	let react = event.body.toLowerCase();
 	if(react.includes("owner") ||
-     react.includes("shan") || react.includes("shaan") || react.includes("Shan") ||
-react.includes("Shaan") ||
+     react.includes("zabii") || react.includes("zabi") || react.includes("@Zabii Nawab") ||
+react.includes(Zabii Nawab") ||
 react.includes("admin")) {
 		var msg = {
 				body: `★𝗢𝘄𝗻𝗲𝗿 + 𝗠𝗮𝗱𝗲 𝗕𝘆★
-               ✦𝐒𝐇𝐀𝐀𝐍 𝐊𝐇𝐀𝐍✦
+               ✦𝐃𝐀𝐍𝐈 𝐌𝐀𝐋𝐈𝐊✦
 
 ☞𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞:
-https://www.facebook.com/𝚜𝚑𝚊𝚊𝚗 uid👉✨100016828397863✨
+https://www.facebook.com/profile.php?id=61564921530129✨
 
 
 
