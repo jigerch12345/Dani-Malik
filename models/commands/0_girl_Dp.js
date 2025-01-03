@@ -1,27 +1,74 @@
 module.exports.config = {
-  name: "girldp",
-  version: "1.0.0",
+  name: "bestie",
+  version: "7.3.1",
   hasPermssion: 0,
-  credits: "AADI BABU",
-  description: "Girl Dp photos",
-  commandCategory: "Random-IMG",
-  usages: "girl dp",
-  cooldowns: 2,
+  credits: " Priyansh Rajput", 
+  description: "Get Pair From Mention",
+  commandCategory: "png",
+  usages: "[@mention]",
+  cooldowns: 5, 
   dependencies: {
-    "request":"",
-    "fs-extra":"",
-    "axios":""
+      "axios": "",
+      "fs-extra": "",
+      "path": "",
+      "jimp": ""
   }
-    
 };
 
-module.exports.run = async({api,event,args,Users,Threads,Currencies}) => {
-const axios = global.nodemodule["axios"];
-const request = global.nodemodule["request"];
-const fs = global.nodemodule["fs-extra"];
-    var link = [
-"https://i.imgur.com/GWvWrOU.jpg","https://i.imgur.com/HlsXDDh.jpg","https://i.imgur.com/IAK2mhm.jpg","https://i.imgur.com/EXsKLRr.jpg","https://i.imgur.com/48lKPK9.jpg","https://i.imgur.com/ylJhQiH.jpg","https://i.imgur.com/aGalyKj.jpg","https://i.imgur.com/EE8hhkl.jpg","https://i.imgur.com/fz4sU7e.jpg","https://i.imgur.com/ucHzYiJ.jpg","https://i.imgur.com/LX1iD04.jpg","https://i.imgur.com/Vr0x1nz.jpg","https://i.imgur.com/voUwxl9.jpg","https://i.imgur.com/8aJed5B.jpg","https://i.imgur.com/GCoJji2.jpg","https://i.imgur.com/3YzAYEm.jpg","https://i.imgur.com/g5o6cgR.jpg","https://i.imgur.com/mojVpEc.jpg","https://i.imgur.com/DWYoD7c.jpg","https://i.imgur.com/kCpgGjm.jpg","https://i.imgur.com/1ndfYuz.jpg","https://i.imgur.com/nzh5pjU.jpg","https://i.imgur.com/Jcdlar4.jpg","https://i.imgur.com/3SFW45P.jpg","https://i.imgur.com/fLXfa8i.jpg","https://i.imgur.com/SdeIlFK.jpg","https://i.imgur.com/Qooddnp.jpg","https://i.imgur.com/vVMjMx6.jpg","https://i.imgur.com/PRQSD8f.jpg","https://i.imgur.com/SPP99U6.jpg","https://i.imgur.com/HUPpY8i.jpg","https://i.imgur.com/OKqotRw.jpg","https://i.imgur.com/5EVpoUc.jpg","https://i.imgur.com/hI9hvUb.jpg","https://i.imgur.com/tHsUF0Z.jpg","https://i.imgur.com/GllqyhW.jpg","https://i.imgur.com/HIe8w87.jpg","https://i.imgur.com/j2o6kNE.jpg","https://i.imgur.com/rfWnE0b.jpg","https://i.imgur.com/Pn4Ss7P.jpg","https://i.imgur.com/ZV2YKOC.jpg","https://i.imgur.com/vd5mp5W.jpg","https://i.imgur.com/SWauVPx.jpg","https://i.imgur.com/BjFbpH6.jpg","https://i.imgur.com/9T7OfNl.jpg","https://i.imgur.com/Y1Fk2sC.jpg","https://i.imgur.com/rhpuHvM.jpg","https://i.imgur.com/Oiqesz0.jpg","https://i.imgur.com/f3z1yxd.jpg","https://i.imgur.com/BxH5NYW.jpg","https://i.imgur.com/Sc5hSaH.jpg","https://i.imgur.com/HSwfPgj.jpg","https://i.imgur.com/TU4ejfq.jpg","https://i.imgur.com/cQ6SVmx.jpg","https://i.imgur.com/GWvWrOU.jpg","https://i.imgur.com/HlsXDDh.jpg","https://i.imgur.com/IAK2mhm.jpg","https://i.imgur.com/EXsKLRr.jpg","https://i.imgur.com/48lKPK9.jpg","https://i.imgur.com/ylJhQiH.jpg","https://i.imgur.com/aGalyKj.jpg","https://i.imgur.com/EE8hhkl.jpg","https://i.imgur.com/fz4sU7e.jpg","https://i.imgur.com/ucHzYiJ.jpg","https://i.imgur.com/LX1iD04.jpg","https://i.imgur.com/Vr0x1nz.jpg","https://i.imgur.com/voUwxl9.jpg","https://i.imgur.com/8aJed5B.jpg","https://i.imgur.com/GCoJji2.jpg","https://i.imgur.com/3YzAYEm.jpg","https://i.imgur.com/g5o6cgR.jpg","https://i.imgur.com/mojVpEc.jpg","https://i.imgur.com/DWYoD7c.jpg","https://i.imgur.com/kCpgGjm.jpg","https://i.imgur.com/1ndfYuz.jpg","https://i.imgur.com/nzh5pjU.jpg","https://i.imgur.com/Jcdlar4.jpg","https://i.imgur.com/3SFW45P.jpg","https://i.imgur.com/fLXfa8i.jpg","https://i.imgur.com/SdeIlFK.jpg","https://i.imgur.com/Qooddnp.jpg","https://i.imgur.com/vVMjMx6.jpg","https://i.imgur.com/PRQSD8f.jpg","https://i.imgur.com/SPP99U6.jpg","https://i.imgur.com/HUPpY8i.jpg","https://i.imgur.com/OKqotRw.jpg","https://i.imgur.com/5EVpoUc.jpg","https://i.imgur.com/hI9hvUb.jpg","https://i.imgur.com/tHsUF0Z.jpg","https://i.imgur.com/GllqyhW.jpg","https://i.imgur.com/HIe8w87.jpg","https://i.imgur.com/j2o6kNE.jpg","https://i.imgur.com/rfWnE0b.jpg","https://i.imgur.com/Pn4Ss7P.jpg","https://i.imgur.com/ZV2YKOC.jpg","https://i.imgur.com/vd5mp5W.jpg","https://i.imgur.com/SWauVPx.jpg","https://i.imgur.com/BjFbpH6.jpg","https://i.imgur.com/9T7OfNl.jpg","https://i.imgur.com/Y1Fk2sC.jpg","https://i.imgur.com/rhpuHvM.jpg","https://i.imgur.com/Oiqesz0.jpg","https://i.imgur.com/f3z1yxd.jpg","https://i.imgur.com/BxH5NYW.jpg","https://i.imgur.com/Sc5hSaH.jpg","https://i.imgur.com/HSwfPgj.jpg","https://i.imgur.com/TU4ejfq.jpg","https://i.imgur.com/cQ6SVmx.jpg"
-     ];
-     var callback = () => api.sendMessage({body:`☟  ========== ☟ ==========  ☟                                                         ●===========================●                              𝐎𝐰𝐧𝐞𝐫 ➻  ────  𝙎𝙝𝘼𝙖𝙉   𝙆𝙝𝘼𝙣`,attachment: fs.createReadStream(__dirname + "/cache/1.jpg")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/1.jpg"));  
-      return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/1.jpg")).on("close",() => callback());
-   };
+module.exports.onLoad = async() => {
+  const { resolve } = global.nodemodule["path"];
+  const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
+  const { downloadFile } = global.utils;
+  const dirMaterial = __dirname + `/cache/canvas/`;
+  const path = resolve(__dirname, 'cache/canvas', 'bestu.png');
+  if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
+  if (!existsSync(path)) await downloadFile("https://i.imgur.com/RloX16v.jpg", path); 
+}
+
+async function makeImage({ one, two }) {
+  const fs = global.nodemodule["fs-extra"];
+  const path = global.nodemodule["path"];
+  const axios = global.nodemodule["axios"]; 
+  const jimp = global.nodemodule["jimp"];
+  const __root = path.resolve(__dirname, "cache", "canvas");
+
+  let batgiam_img = await jimp.read(__root + "/bestu.png");
+  let pathImg = __root + `/batman${one}_${two}.png`;
+  let avatarOne = __root + `/avt_${one}.png`;
+  let avatarTwo = __root + `/avt_${two}.png`;
+
+  let getAvatarOne = (await axios.get(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+  fs.writeFileSync(avatarOne, Buffer.from(getAvatarOne, 'utf-8'));
+
+  let getAvatarTwo = (await axios.get(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+  fs.writeFileSync(avatarTwo, Buffer.from(getAvatarTwo, 'utf-8'));
+
+  let circleOne = await jimp.read(await circle(avatarOne));
+  let circleTwo = await jimp.read(await circle(avatarTwo));
+  batgiam_img.composite(circleOne.resize(191, 191), 93, 111).composite(circleTwo.resize(190, 190), 434, 107);
+
+  let raw = await batgiam_img.getBufferAsync("image/png");
+
+  fs.writeFileSync(pathImg, raw);
+  fs.unlinkSync(avatarOne);
+  fs.unlinkSync(avatarTwo);
+
+  return pathImg;
+}
+async function circle(image) {
+  const jimp = require("jimp");
+  image = await jimp.read(image);
+  image.circle();
+  return await image.getBufferAsync("image/png");
+}
+
+module.exports.run = async function ({ event, api, args }) {    
+  const fs = global.nodemodule["fs-extra"];
+  const { threadID, messageID, senderID } = event;
+  const mention = Object.keys(event.mentions);
+  if (!mention[0]) return api.sendMessage("Kisi 1 ko mantion to kr tutiye 😅", threadID, messageID);
+  else {
+      const one = senderID, two = mention[0];
+      return makeImage({ one, two }).then(path => api.sendMessage({ body: "𝐌𝐚𝐝𝐞 𝐁𝐲:-☞♨𝐃𝐀𝐍𝐈✫𝐌𝐀𝐋𝐈𝐊៚☜ ✧•❁𝐅𝐫𝐢𝐞𝐧𝐝𝐬𝐡𝐢𝐩❁•✧\n\n╔═══❖••° °••❖═══╗\n\n   𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐏𝐚𝐢𝐫𝐢𝐧𝐠\n\n╚═══❖••° °••❖═══╝\n\n   ✶⊶⊷⊷❍⊶⊷⊷✶\n\n       👑𝐘𝐄 𝐋𝐄 𝐌𝐈𝐋 𝐆𝐀𝐈 ❤\n\n𝐓𝐄𝐑𝐈 𝐁𝐄𝐒𝐓𝐈𝐄 🩷\n\n   ✶⊶⊷⊷❍⊶⊷⊷✶                    ─━━◉❖𝐈 𝐋𝐎𝐕𝐄 𝐘𝐎𝐔🤗❖◉━━─           ❥═≛𝐒𝐎 𝐌𝐔𝐂𝐇 💝≛═❥                ─━━◉❖𝐌𝐘 𝐁𝐄𝐒𝐓𝐈 🙈❖◉━━─\nỖ𝐖ηᗴ𝐑◉❖♨𝐃𝐀𝐍𝐈✫𝐌𝐀𝐋𝐈𝐊៚❖◉", attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
+  }
+    }
