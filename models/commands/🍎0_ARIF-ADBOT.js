@@ -1,115 +1,85 @@
 module.exports.config = {
-    name: "adbot",
+    name: "hadis",
     version: "1.0.0",
-    hasPermssion: 0,
-    credits: "ARIF-BABU",
-    description: "",
-    commandCategory: "info",
-    usages: "",
-    cooldowns: 4,
-    dependencies: {
-        "request": "",
-        "fs": ""
-    }
-    
+    hasPermision: 0,
+    credit: "𝗗𝗔𝗡𝗜-𝙋𝙍𝙊𝙅𝙀𝘾𝙏",
+    description: "hadith",
+    commandCategory: "random-video",
+    cooldowns: 15,
 };
+module.exports.run = async function({api, event, args, utils, Users, Threads}) {
+  const axios = require("axios")
+  const request = require("request")
+  const fs = require("fs-extra")
+  var link = ["https://i.imgur.com/p1L88TP.mp4" ,  "https://i.imgur.com/hNufebF.mp4"   , "https://i.imgur.com/iKo9eU0.mp4"    ,"https://i.imgur.com/9f91oGe.mp4"   ,"https://i.imgur.com/vCf3t6P.mp4" ,];
+var alikoja = [`وحَدَّثَنِي الْقَاسِمُ بْنُ زَكَرِيَّا، حَدَّثَنَا خَالِدُ بْنُ مَخْلَدٍ، حَدَّثَنِي سُلَيْمَانُ يَعْنِي ابْنَ بِلَالٍ، حَدَّثَنِي سُهَيْلٌ، فِي هَذَا الْإِسْنَادِ بِمَعْنَى حَدِيثِ مَالِكٍ: «فَلْيُكَفِّرْ يَمِينَهُ، وَلْيَفْعَلِ الَّذِي هُوَ خَيْرٌ
 
-module.exports.run = async({api,event,args}) => {
-    const fs = global.nodemodule["fs-extra"];
-    const request = global.nodemodule["request"];
-    const threadSetting = global.data.threadData.get(parseInt(event.threadID)) || {};
-    const prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : global.config.PREFIX;
-     if (args.length == 0) return api.sendMessage(`You can use:\n\n${prefix}${this.config.name} user => it will take your own information.\n\n${prefix}${this.config.name} user @[Tag] => it will get friend information tag.\n\n${prefix}${this.config.name} box => it will get your box information (number of members, djt each other,...)\n\n${prefix}${this.config.name} user box [uid || tid.:\n\n${prefix}${this.config.name} admin => Admin Bot's Personal Information]`, event.threadID, event.messageID);
-    if (args[0] == "box") {
-           if(args[1]){ let threadInfo = await api.getThreadInfo(args[1]);
-           let imgg = threadInfo.imageSrc;
-           var gendernam = [];
-            var gendernu = [];
-                for (let z in threadInfo.userInfo) {
-                var gioitinhone = threadInfo.userInfo[z].gender;
-                if(gioitinhone == "MALE"){gendernam.push(gioitinhone)
-                }else{gendernu.push(gioitinhone)
-                }};
-             var nam = gendernam.length;
-             var nu = gendernu.length;
-             let sex = threadInfo.approvalMode;
-       var pd = sex == false ? "Turn off" : sex == true ? "turn on" : "NS";
-       if(!imgg) api.sendMessage(`Group name: ${threadInfo.threadName}\nTID: ${args[1]}\nApproved: ${pd}\nEmoji: ${threadInfo.emoji}\nInformation: \n»${threadInfo.participantIDs.length} members and ${threadInfo.adminIDs.length} administrators.\n»Including ${nam} boy and ${nu} female.\n»Total number of messages: ${threadInfo.messageCount}.`,event.threadID,event.messageID);
-        else var callback = () => api.sendMessage({body:`Group name: ${threadInfo.threadName}\nTID: ${args[1]}\nApproved: ${pd}\nEmoji: ${threadInfo.emoji}\nInformation: \n»${threadInfo.participantIDs.length} members and ${threadInfo.adminIDs.length}administrators.\n»Including ${nam} boy and ${nu} female.\n»Total number of messages: ${threadInfo.messageCount}.`,attachment: fs.createReadStream(_dirname + "/cache/1.png")}, event.threadID, () => fs.unlinkSync(_dirname + "/cache/1.png"), event.messageID); 
-      return request(encodeURI(`${threadInfo.imageSrc}`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',() => callback());
-      
-      }
-          
-            let threadInfo = await api.getThreadInfo(event.threadID);
-            let img = threadInfo.imageSrc;
-            var gendernam = [];
-            var gendernu = [];
-                for (let z in threadInfo.userInfo) {
-                var gioitinhone = threadInfo.userInfo[z].gender;
-                if(gioitinhone == "MALE"){gendernam.push(gioitinhone)
-                }else{gendernu.push(gioitinhone)
-                }};
-             var nam = gendernam.length;
-             var nu = gendernu.length;
-             let sex = threadInfo.approvalMode;
-       var pd = sex == false ? "Turn off" : sex == true ? "turn on" : "NS";
-          if(!img) api.sendMessage(`Group name: ${threadInfo.threadName}\nTID: ${event.threadID}\nApproved: ${pd}\nEmoji: ${threadInfo.emoji}\nInformation: \n»${threadInfo.participantIDs.length} members and ${threadInfo.adminIDs.length} administrators.\n»Including ${nam} boy and ${nu} nữ.\n»Total number of messages: ${threadInfo.messageCount}.`,event.threadID,event.messageID)
-          else  var callback = () => api.sendMessage({body:`Group name: ${threadInfo.threadName}\nTID: ${event.threadID}\nBrowser: ${pd}\nEmoji: ${threadInfo.emoji}\nInformation: \n»${threadInfo.participantIDs.length} members and ${threadInfo.adminIDs.length} administrators.\n»Including ${nam} boy and ${nu} female.\n»Total number of messages: ${threadInfo.messageCount}.`,attachment: fs.createReadStream(_dirname + "/cache/1.png")}, event.threadID, () => fs.unlinkSync(_dirname + "/cache/1.png"), event.messageID);   
-      return request(encodeURI(`${threadInfo.imageSrc}`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',() => callback());
-    }
-               if (args.length == 0) return api.sendMessage(`You can use:\n\n${prefix}${this.config.name} user => it will get your own information.\n\n${prefix}${this.config.name} user @[Tag] => it will get the information of the person you tag.\n\n${prefix}${this.config.name} box => it will get your box information (number of members, djt each other,...)\n\n${prefix}${this.config.name} user box [uid || tid]`, event.threadID, event.messageID);
-    if (args[0] == "admin") {
-      var callback = () => api.sendMessage(
-  {body:`———»ADMIN BOT«———
-   ❯ Name: 𝐀𝐑𝐈𝐅 𝐁𝐀𝐁𝐔 🍎 
-   ❯ Facebook: https://www.facebook.com/profile.php?id=61553634015672&mibextid=kFxxJD
-   ❯ Thanks for using ${global.config.BOTNAME} bot`,
-    attachment: fs.createReadStream(__dirname + "/cache/1.png")}, event.threadID, () => 
-    fs.unlinkSync(__dirname + "/cache/1.png"));  
-      return request(encodeURI(`https://graph.facebook.com/61553634015672/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(
-fs.createWriteStream(__dirname+'/cache/1.png')).on('close',() => callback());
-    
-      };
+ سلیمان بن بلال نے مجھے سہیل سے اسی سند کے ساتھ امام مالک کی حدیث کے ہم معنی حدیث ( ان الفاظ میں ) بیان کی :’’ اسے چاہئے کہ اپنی قسم کا کفارہ دے اور وہ کام کرے جو بہتر ہے ۔‘‘ 
 
-if (args[0] == "user") { 
-    if(!args[1]){
-    if(event.type == "message_reply") id = event.messageReply.senderID
-    else id = event.senderID;
-    let data = await api.getUserInfo(id);
-    let url = data[id].profileUrl;
-    let b = data[id].isFriend == false ? "are not !" : data[id].isFriend == true ? "Yes !" : "Damn";
-    let sn = data[id].vanity;
-    let name = await data[id].name;
-    var sex = await data[id].gender;
-    var gender = sex == 2 ? "Male" : sex == 1 ? "female" : "Undefined";
-    var callback = () => api.sendMessage({body:`Name: ${name}` + `\nUser url: ${url}` + `\nUser name: ${sn}\nUID: ${id}\nGender: ${gender}\nMake friends with bots: ${b}`,attachment: fs.createReadStream(_dirname + "/cache/1.png")}, event.threadID, () => fs.unlinkSync(_dirname + "/cache/1.png"),event.messageID); 
-       return request(encodeURI(`https://graph.facebook.com/${id}/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',() => callback());
-   }
-    else {
-    
-    if (args.join().indexOf('@') !== -1){
-    var mentions = Object.keys(event.mentions)
-    let data = await api.getUserInfo(mentions);
-    let url = data[mentions].profileUrl;
-    let b = data[mentions].isFriend == false ? "are not !" : data[mentions].isFriend == true ? "yes!" : "Dammit";
-    let sn = data[mentions].vanity;
-    let name = await data[mentions].name;
-    var sex = await data[mentions].gender;
-    var gender = sex == 2 ? "Male" : sex == 1 ? "Female" : "Tran Duc Bo";
-    var callback = () => api.sendMessage({body:`Name: ${name}` + `\nPersonal URL: ${url}` + `\n💦User name: ${sn}\nUID: ${mentions}\nSex: ${gender}\nMake friends with bots: ${b}`,attachment: fs.createReadStream(_dirname + "/cache/1.png")}, event.threadID, () => fs.unlinkSync(_dirname + "/cache/1.png"),event.messageID);   
-       return request(encodeURI(`https://graph.facebook.com/${mentions}/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',() => callback());
-    }
-    else {
-    let data = await api.getUserInfo(args[1]);
-    let url = data[args[1]].profileUrl;
-    let b = data[args[1]].isFriend == false ? "are not !" : data[args[1]].isFriend == true ? "yes!" : "Damn";
-    let sn = data[args[1]].vanity;
-    let name = await data[args[1]].name;
-    var sex = await data[args[1]].gender;
-    var gender = sex == 2 ? "Name" : sex == 1 ? "Female" : "Tran Duc Bo";
-    var callback = () => api.sendMessage({body:`Name: ${name}` + `\nPersonal URL: ${url}` + `\nUser name: ${sn}\nUID: ${args[1]}\nGender: ${gender}\nMake friends with bots: ${b}`,attachment: fs.createReadStream(_dirname + "/cache/1.png")}, event.threadID, () => fs.unlinkSync(_dirname + "/cache/1.png"),event.messageID);   
-       return request(encodeURI(`https://graph.facebook.com/${args[1]}/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',() => callback());
-    }
-     }
-     }
-}
+کتاب: قسموں کا بیان
+
+Sahih Muslim#4274\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا عَبْدُ الْأَعْلَى، عَنْ هِشَامٍ، عَنِ الْحَسَنِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ سَمُرَةَ، قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «لَا تَحْلِفُوا بِالطَّوَاغِي، وَلَا بِآبَائِكُمْ
+
+ حضرت عبدالرحمن بن سمرہ رضی اللہ عنہ سے روایت ہے ، انہوں نے کہا : رسول اللہ ﷺ نے فرمایا : تم بتوں کی قسم نہ کھاؤ ، نہ ہی اپنے آباء و اجداد کی  
+
+کتاب: قسموں کا بیان
+
+Sahih Muslim#4262\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`وحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَعَمْرٌو النَّاقِدُ، وَزُهَيْرُ بْنُ حَرْبٍ، قَالُوا: حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنِ الزُّهْرِيِّ، عَنْ سَالِمٍ، عَنْ أَبِيهِ، قَالَ: سَمِعَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ عُمَرَ وَهُوَ يَحْلِفُ بِأَبِيهِ بِمِثْلِ رِوَايَةِ يُونُسَ، وَمَعْمَرٍ
+
+ سفیان بن عیینہ نے زہری سے ، انہوں نے سالم سے اور انہوں نے اپنے والد سے روایت کی ، انہوں نے کہا : نبی ﷺ نے حضرت عمر رضی اللہ عنہ کو سنا ، وہ اپنے والد کی قسم کھا رہے تھے ۔۔۔ ( آگے ) یونس اور معمر کی روایت کے مانند ہے ۔ 
+
+کتاب: قسموں کا بیان
+
+Sahih Muslim#4256\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`وحَدَّثَنِيهِ إِبْرَاهِيمُ بْنُ دِينَارٍ، حَدَّثَنَا عُبَيْدُ اللهِ بْنُ مُوسَى، حَدَّثَنَا شَيْبَانُ، عَنِ الْأَعْمَشِ، بِهَذَا الْإِسْنَادِ غَيْرَ أَنَّهُ قَالَ: «وَمَنْ وَالَى غَيْرَ مَوَالِيهِ بِغَيْرِ إِذْنِهِمْ»
+
+ شیبان نے اعمش سے اسی سند کے ساتھ حدیث بیان کی ، البتہ انہوں نے کہا : جس نے اپنے آزاد کرنے والوں کے سوا ، ان کی اجازت کے بغیر کسی اور کے ساتھ موالات کی ۔
+
+کتاب: غلامی سے آزادی کا بیان
+
+Sahih Muslim#3793\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`حَدَّثَنَا أَبُو كُرَيْبٍ مُحَمَّدُ بْنُ الْعَلَاءِ، أَخْبَرَنَا ابْنُ أَبِي زَائِدَةَ، عَنْ سَعْدِ بْنِ طَارِقٍ، حَدَّثَنِي رِبْعِيُّ بْنُ حِرَاشٍ، عَنْ حُذَيْفَةَ قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ بِمِثْلِهِ
+
+ ۔ ابن ابی زائدہ نے ( ابومالک ) سعد بن طارق ( اشجعی ) سے روایت کی ، کہا : مجھے ربعی بن حراش نے حضرت حذیفہ رضی اللہ عنہ سے حدیث سنائی ، کہا : رسول اللہ ﷺ نے فرمایا ......... آگے سابقہ حدیث کے مانند ہے ۔ 
+
+کتاب: مسجدوں اور نماز کی جگہوں کے احکام
+
+Sahih Muslim#1166\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا هُشَيْمٌ، أَخْبَرَنَا سَيَّارٌ، حَدَّثَنَا يَزِيدُ الْفَقِيرُ، أَخْبَرَنَا جَابِرُ بْنُ عَبْدِ اللهِ أَنَّ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَالَ فَذَكَرَ نَحْوَهُ
+
+ ابوبکر بن ابی شیبہ نے ہشیم سے اسی سابقہ سند سے روایت کی کہ رسول اللہ ﷺ نے فرمایا : ..... پھر اسی طرح بیان کیا ۔ 
+
+کتاب: مسجدوں اور نماز کی جگہوں کے احکام
+
+Sahih Muslim#1164\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`وحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا أَبُو خَالِدٍ الْأَحْمَرُ، ح وَحَدَّثَنِيهِ زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ، كِلَاهُمَا عَنْ أَبِي مَالِكٍ، عَنْ أَبِيهِ، أَنَّهُ سَمِعَ النَّبِيَّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَنْ وَحَّدَ اللهَ»، ثُمَّ ذَكَرَ بِمِثْلِهِ
+
+ ابوخالد احمر اور یزید بن ہارون نے ابومالک سے ، انہوں نے اپنے والد سے روایت کی کہ انہوں نے نبی اکرم ﷺ کو یہ فرماتے ہوئے سنا : جس نے اللہ کو یکتا قرار دیا ......  پھر مذکورہ بالا حدیث کی طرح بیان کیا ۔ 
+
+کتاب: ایمان کا بیان
+
+Sahih Muslim#131\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`وحَدَّثَنَا سُوَيْدُ بْنُ سَعِيدٍ، وَابْنُ أَبِي عُمَرَ، قَالَا: حَدَّثَنَا مَرْوَانُ يَعْنِيَانِ الْفَزَارِيَّ، عَنْ أَبِي مَالِكٍ، عَنْ أَبِيهِ، قَالَ: سَمِعْتُ رَسُولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، يَقُولُ    مَنْ قَالَ: لَا إِلَهَ إِلَّا اللهُ، وَكَفَرَ بِمَا يُعْبَدُ مَنْ دُونِ اللهِ، حَرُمَ مَالُهُ، وَدَمُهُ، وَحِسَابُهُ عَلَى اللهِ   
+
+ مروان فزاری نے ابومالک ( سعد بن طارق اشجعی ) سے حدیث سنائی ، انہوں نے اپنے والد ( طارق بن اشیم ) سے روایت کی ، انہوں نے کہا کہ میں نے رسول اللہ ﷺ کو یہ فرماتے ہوئے سنا : جس نے «لا اله الا الله» کہا اور اللہ کے سوا جن کی بندگی کی جاتی ہے ، ان ( سب ) کا انکار کیا تو اس کا مال و جان محفوظ ہو گیا اور اس کا حساب اللہ پر ہے ۔
+
+کتاب: ایمان کا بیان
+
+Sahih Muslim#130\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا بِشْرُ بْنُ السَّرِيِّ، حَدَّثَنَا زَكَرِيَّاءُ بْنُ إِسْحَاقَ، ح وحَدَّثَنَا عَبْدُ بْنُ حُمَيْدٍ، حَدَّثَنَا أَبُو عَاصِمٍ، عَنْ زَكَرِيَّاءَ بْنِ إِسْحَاقَ، عَنْ يَحْيَى بْنِ عَبْدِ اللهِ بْنِ صَيْفِيٍّ، عَنْ أَبِي مَعْبَدٍ، عَنِ ابْنِ عَبَّاسٍ، أَنَّ النَّبِيَّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ بَعَثَ مُعَاذًا إِلَى الْيَمَنِ، فَقَالَ: إِنَّكَ سَتَأْتِي قَوْمًا بِمِثْلِ حَدِيثِ وَكِيعٍ
+
+ بشر بن سری اور ابوعاصم نے زکریا بن اسحاق سے خبر دی کہ یحیی بن عبداللہ بن صیفی نے ابومعبد سے اور انھوں نے حضرت ابن عباس رضی اللہ عنہما سے روایت کی کہ نبی ﷺ نے جناب معاذ رضی اللہ عنہ کو یمن کی طرف بھیجا تو فرمایا : تم کچھ لوگوں کے پاس پہنچو گے .....  آگے وکیع کی حدیث کی طرح ہے ۔ 
+
+کتاب: ایمان کا بیان
+
+Sahih Muslim#122\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`وحَدَّثَنِي مُحَمَّدُ بْنُ حَاتِمٍ، وَعَبْدُ الرَّحْمَنِ بْنُ بِشْرٍ، قَالَا: حَدَّثَنَا بَهْزٌ، حَدَّثَنَا شُعْبَةُ، حَدَّثَنَا مُحَمَّدُ بْنُ عُثْمَانَ بْنِ عَبْدِ اللهِ بْنِ مَوْهَبٍ، وَأَبُوهُ عُثْمَانَ، أَنَّهُمَا سَمِعَا مُوسَى بْنَ طَلْحَةَ، يُحَدِّثُ عَنْ أَبِي أَيُّوبَ، عَنِ النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ بِمِثْلِ هَذَا الْحَدِيثِ
+
+ محمد بن عثمان بن عبداللہ بن موہب اور ان کے والد عثمان دونوں نے موسیٰ بن طلحہ سے سنا وہ حضرت ابوایوب رضی اللہ عنہ سے اور وہ نبی کریم ﷺ سے سابقہ حدیث کے مانند بیان کرتے تھے ۔ 
+
+کتاب: ایمان کا بیان
+
+Sahih Muslim#105\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)` ,`حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللهِ بْنِ نُمَيْرٍ، حَدَّثَنَا مُحَمَّدُ بْنُ بِشْرٍ، حَدَّثَنَا أَبُو حَيَّانَ التَّيْمِيُّ، بِهَذَا الْإِسْنَادِ مِثْلَهُ، غَيْرَ أَنَّ فِي رِوَايَتِهِ: «إِذَا وَلَدَتِ الْأَمَةُ بَعْلَهَا» يَعْنِي السَّرَارِيَّ
+
+ ( ابن علیہ کے بجائے ) محمد بن بشر نے کہا : ہمیں ابوحیان نے سابقہ سند سے وہی حدیث بیان کی ، البتہ ان کی روایت میں : «إذا ولدت الأمة بعلها»  جب لونڈی اپنا مالک جنے گی  ( «رب» کی جگہ «بعل» ، یعنی مالک ) کے الفاظ ہیں ۔ ( «أمة» سے مملوکہ ) لونڈیاں مراد ہیں ۔
+
+کتاب: ایمان کا بیان 
+
+Sahih Muslim#98\n\n(𝘾𝙍𝙀𝘿𝙄𝙏 :- 𝗗𝗔𝗡𝗜 𝗠𝗔𝗟𝗜𝗞 ❤️🌿)`];
+  var juswa1 = alikoja[Math.floor(Math.random() * alikoja.length)];
+  var callback = () => api.sendMessage({body:`${juswa1}`,attachment: fs.createReadStream(__dirname + "/cache/zac.mp4")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/zac.mp4")); 
+      return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/zac.mp4")).on("close",() => callback());
+   };
