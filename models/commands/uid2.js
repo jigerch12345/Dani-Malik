@@ -1,54 +1,20 @@
 module.exports.config = {
-	name: "uid2",
-	version: "1.0.0",
-	hasPermssion: 0,
-	credits: "SHAAN KHAN",
-	description: "THIS BOT WAS MADE BY MR SHAAN KHAN",
-	commandCategory: "USER UID NUMBER",
-	cooldowns: 5
+    name: "Poetryclip",
+    version: "1.0.0",
+    hasPermision: 0,
+    credit: "𝐃𝐀𝐍𝐈 𝐌𝐀𝐋𝐈𝐊",
+    description: "random quran verse",
+    usePrefix: true,
+    commandCategory: "random-img",
+    cooldowns: 0,
 };
-
-module.exports.run = async function({ event, api, args, client, Currencies, Users, utils, __GLOBAL, reminder }) {
-const fs = global.nodemodule["fs-extra"];
-    const request = global.nodemodule["request"];
-    const axios = global.nodemodule['axios']; 
-    if(event.type == "message_reply") { 
-      let name = await Users.getNameUser(event.messageReply.senderID) 
-  uid = event.messageReply.senderID
-  var callback = () =>   api.sendMessage({body:`🌸✨ ${uid} ✨🌸`, attachment: fs.createReadStream(__dirname + "/cache/1.png")}, event.threadID,
-        () => fs.unlinkSync(__dirname + "/cache/1.png"),event.messageID); 
-    return request(encodeURI(`https://graph.facebook.com/${uid}/picture?height=1500&width=1500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',
-        () => callback()); 
-    }
-    if (!args[0]) {
-      var uid = event.senderID;
-      const res = await axios.get(`https://www.nguyenmanh.name.vn/api/fbInfo?id=${uid}&apikey=LV7LWgAp`);
-var name = res.data.result.name 
-        var callback = () =>  api.sendMessage({body:`${uid}`, attachment: fs.createReadStream(__dirname + "/cache/1.png")}, event.threadID,
-        () => fs.unlinkSync(__dirname + "/cache/1.png"),event.messageID); 
-    return request(encodeURI(`https://graph.facebook.com/${event.senderID}/picture?height=1500&width=1500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',
-        () => callback()); 
-    }
-    else {
-  if (args[0].indexOf(".com/")!==-1) {
-    const res_ID = await api.getUID(args[0]);
-   var name = data.name
-var data = await api.getUserInfoV2(res_ID);
-    var username = data.username
-    var link = data.link
-    var callback = () => api.sendMessage({body:`${uid}`, attachment: fs.createReadStream(__dirname + "/cache/1.png")}, event.threadID,
-        () => fs.unlinkSync(__dirname + "/cache/1.png"),event.messageID); 
-    return request(encodeURI(`https://graph.facebook.com/${res_ID}/picture?height=1500&width=1500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',
-        () => callback()); }
-  else {
-    if (args.join().indexOf('@') !== -1) 
-      var uid = Object.keys(event.mentions) 
-      var callback = () => 
-api.sendMessage({body:`${uid}`, attachment: fs.createReadStream(__dirname + "/cache/1.png")}, event.threadID,
-        () => fs.unlinkSync(__dirname + "/cache/1.png"),event.messageID); 
-    return request(encodeURI(`https://graph.facebook.com/${uid}/picture?height=1500&width=1500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(fs.createWriteStream(__dirname+'/cache/1.png')).on('close',
-        () => callback()); 
-
-  }
-}
-                                         }
+module.exports.run = async function({api, event, args, utils, Users, Threads}) {
+  const axios = require("axios")
+  const request = require("request")
+  const fs = require("fs-extra")
+  var link = ["https://i.imgur.com/iV29nRt.mp4","https://i.imgur.com/CSTooc0.mp4", "https://i.imgur.com/x8RueYD.mp4", "https://i.imgur.com/gCk6CAi.mp4", "https://i.imgur.com/PJi29ed.mp4", "https://i.imgur.com/SgmdsYF.mp4", "https://i.imgur.com/InnYmjK.mp4", "https://i.imgur.com/m6fmTgh.mp4", "https://i.imgur.com/YZMOduu.mp4", "https://i.imgur.com/6Z3oOhp.mp4", "https://i.imgur.com/gdzT76d.mp4", "https://i.imgur.com/1MKzBe5.mp4", "https://i.imgur.com/gXpOIDh.mp4", "https://i.imgur.com/i9RmbkQ.mp4", "https://i.imgur.com/QuG6foV.mp4", "https://i.imgur.com/nYusRat.mp4", "https://i.imgur.com/lWqgRVN.mp4", "https://i.imgur.com/mqZhk1N.mp4", "https://i.imgur.com/jtGSrVe.mp4", "https://i.imgur.com/OIPdz6K.mp4", "https://i.imgur.com/fgn6Ioa.mp4", "https://i.imgur.com/IWrce1b.mp4", "https://i.imgur.com/yTrQmEu.mp4", "https://i.imgur.com/RuGCAkx.mp4", "https://i.imgur.com/vSILELX.mp4", "https://i.imgur.com/v6EnRud.mp4", "https://i.imgur.com/vY4q7GN.mp4", "https://i.imgur.com/gHHhMdD.mp4", "https://i.imgur.com/C7A8yVG.mp4", "https://i.imgur.com/Vfllgtp.mp4", "https://i.imgur.com/QlLUKyR.mp4", "https://i.imgur.com/xOjDm8y.mp4", "https://i.imgur.com/P8vhVDg.mp4", "https://i.imgur.com/L7Yo5oY.mp4", "https://i.imgur.com/GYcNd3z.mp4", "https://i.imgur.com/nb0OiyY.mp4", "https://i.imgur.com/QOgZKpj.mp4", "https://i.imgur.com/xtOsCdu.mp4", "https://i.imgur.com/nehq4YD.mp4", "https://i.imgur.com/mpR4xIG.mp4", "https://i.imgur.com/Df2LmjT.mp4", "https://i.imgur.com/JZ1uOTE.mp4", "https://i.imgur.com/xx2eu0V.mp4", "https://i.imgur.com/4Xp7mOw.mp4", "https://i.imgur.com/y0CSNcf.mp4", "https://i.imgur.com/ctiLWqZ.mp4", "https://i.imgur.com/oq2xp9W.mp4", "https://i.imgur.com/qASjfzw.mp4", ""];
+var amir = [`𝗖𝗼𝗱𝗲𝗱 𝗕𝘆:𝐃𝐀𝐍𝐈 𝐌𝐀𝐋𝐈𝐤`];
+  var juswa1 = amir[Math.floor(Math.random() * amir.length)];
+  var callback = () => api.sendMessage({body:`${juswa1}`,attachment: fs.createReadStream(__dirname + "/cache/zac.mp4")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/zac.mp4")); 
+      return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/zac.mp4")).on("close",() => callback());
+   };
