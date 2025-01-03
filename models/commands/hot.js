@@ -1,27 +1,97 @@
+/**
+
+* @author Zeeshan Altaf
+
+* @warn Do not edit code or edit credits
+
+* @Dont Change This Credits Otherwisw Your Bot Lol
+
+*/
+
 module.exports.config = {
-  name: "hotdp",
+
+  name: "talawat-e-quran",
+
   version: "1.0.0",
+
   hasPermssion: 0,
-  credits: "SHAAN KHAN",
-  description: "Boys Dp photos",
-  commandCategory: "Admin",
-  usages: "hot",
-  cooldowns: 2,
+
+  credits: "Zeeshan Altaf",
+
+  description: "Dont Change This Credit OtherWise Your Bot Is Lol",
+
+  commandCategory: "random audio",
+
+  usages: "Zeeshan Altaf",
+
+  cooldowns: 5,
+
   dependencies: {
+
     "request":"",
+
     "fs-extra":"",
+
     "axios":""
+
   }
 
 };
 
-module.exports.run = async({api,event,args,Users,Threads,Currencies}) => {
+
+
+module.exports.run = async({api,event,args,client,Users,Threads,__GLOBAL,Currencies}) => {
+
 const axios = global.nodemodule["axios"];
+
 const request = global.nodemodule["request"];
+
 const fs = global.nodemodule["fs-extra"];
-    var link = [
-"https://i.imgur.com/yjwQQsv.jpg","https://i.imgur.com/bMuOehO.jpg","https://i.imgur.com/2N3AFR7.jpg","https://i.imgur.com/xzBD0ix.jpg","https://i.imgur.com/xTqk7WU.jpg","https://i.imgur.com/SoT9yiF.jpg","https://i.imgur.com/U7ObQKZ.jpg","https://i.imgur.com/mGTgUIo.jpg","https://i.imgur.com/5i8c062.jpg","https://i.imgur.com/7P284Ef.jpg","https://i.imgur.com/zHljRae.jpg","https://i.imgur.com/7c3trME.jpg","https://i.imgur.com/dU7Q9G2.jpg","https://i.imgur.com/or0X9VR.jpg","https://i.imgur.com/1pWtonH.jpg","https://i.imgur.com/vRQNUdC.jpg","https://i.imgur.com/UkFkap5.jpg","https://i.imgur.com/97CPa6I.jpg","https://i.imgur.com/bbaFITj.jpg","https://i.imgur.com/cAqL7Be.jpg","https://i.imgur.com/zFcFMIl.jpg","https://i.imgur.com/BYZHrmg.jpg","https://i.imgur.com/iqbMDA0.jpg","https://i.imgur.com/VtGk5Kd.jpg","https://i.imgur.com/co0WWby.jpg","https://i.imgur.com/c7FLjDU.jpg","https://i.imgur.com/udAHrZ2.jpg","https://i.imgur.com/hSxC0Vm.jpg","https://i.imgur.com/mjGUUYz.jpg","https://i.imgur.com/uvJk8jw.jpg","https://i.imgur.com/zHVUxOn.jpg","https://i.imgur.com/WFC5vWV.jpg","https://i.imgur.com/nnM8JlY.jpg","https://i.imgur.com/CuFYVko.jpg","https://i.imgur.com/LAKYcnn.jpg","https://i.imgur.com/VhTssee.jpg","https://i.imgur.com/DXqJzRP.jpg","https://i.imgur.com/KFbDLrv.jpg","https://i.imgur.com/JocSABV.jpg","https://i.imgur.com/PB0dg8c.jpg","https://i.imgur.com/5gllMiy.jpg","https://i.imgur.com/aS8qCAE.jpg","https://i.imgur.com/z1iKMf7.jpg","https://i.imgur.com/X3PQnPb.jpg","https://i.imgur.com/d4db0rY.jpg","https://i.imgur.com/6kjfe2s.jpg","https://i.imgur.com/hf6tfLl.jpg","https://i.imgur.com/RF3Sze5.jpg","https://i.imgur.com/khJQrvO.jpg","https://i.imgur.com/VTmPBc0.jpg","https://i.imgur.com/KiccOK1.jpg","https://i.imgur.com/pVvPxRS.jpg","https://i.imgur.com/ko2yNHY.jpg","https://i.imgur.com/4xoDs60.jpg","https://i.imgur.com/7C3nisi.jpg","https://i.imgur.com/moOFGSf.jpg","https://i.imgur.com/206q38t.jpg",
-  ];
-     var callback = () => api.sendMessage({body:`\n☟  ========== ☟ ==========  ☟                                                         ●===========================●                              𝐎𝐰𝐧𝐞𝐫 ➻  ────  𝙎𝙃𝘼𝘼𝙉   𝙆𝙃𝘼𝙉\n\n\n`,attachment: fs.createReadStream(__dirname + "/cache/1.jpg")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/1.jpg"));  
-      return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/1.jpg")).on("close",() => callback());
+
+   var hi = ["بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ                   قرآن کہتا ہے ‏                                      اور ہم نے محمدﷺ کو تمام جہانوں کیلئے رحمت بنا کر بھیجا"];
+
+  var know = hi[Math.floor(Math.random() * hi.length)];
+
+  var link = [
+
+   "https://drive.google.com/uc?id=1-9idslRZAmPWrktKMRWywsOGTrhJwufn",
+
+   
+
+   "https://drive.google.com/uc?id=1-cSfVhLzFR7-2OEqi_r_h7WPwyztNbX9",
+
+   
+
+   "https://drive.google.com/uc?id=1zkzDYqsYys7idKeV3sxtDBO2zYLcce78",
+
+   
+
+   "https://drive.google.com/uc?id=1-h4QAwp0fbOuiI02wBWHgnlZ67OcntXh",
+
+   
+
+   "https://drive.google.com/uc?id=1-2Npr1WfC5U_vUtX-ocRbs-92WfeO3C4",
+
+   
+
+   "https://drive.google.com/uc?id=1zs5vmoljY7MS8pfNf6_HidfucP0-Qvu_",
+
+   
+
+   "https://drive.google.com/uc?id=1EkEL_ci9pCAVdqLed23EI-Wk_xem6jnn",
+
+   
+
+   "https://drive.google.com/uc?id=1-CIHqFkF6Zj3IJ6u4OuN5Z_rBL02ICba",
+
+   
+
+   "https://drive.google.com/uc?id=1-CoomuQjCU0lzpVf87E0zBQrR-S9nHVj"];
+
+     var callback = () => api.sendMessage({body:` ✨ ${know} 🌸 
+
+    *𝐎𝐖𝐍𝐄𝐑 𝐃𝐀𝐍𝐈 𝐌𝐀𝐋𝐈𝐊`,attachment: fs.createReadStream(__dirname + "/cache/26.mp3")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/26.mp3"));    
+
+      return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/26.mp3")).on("close",() => callback());
+
    };
