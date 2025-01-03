@@ -1,66 +1,145 @@
-const moment = require("moment-timezone");
+const axios = require("axios");
 
 module.exports.config = {
-  name: "time",
-  version: "1.0.3",
+  name: "zabi",
+  version: "1.3.0",
   hasPermission: 0,
-  credits: "SHAAN SIR",
-  description: "Get the current time of multiple countries in a styled format",
-  commandCategory: "Utility",
-  usages: "[time]",
+  credits: "SHANKAR SIR",
+  description: "Hercai bot with memory and context-aware conversation.",
+  commandCategory: "AI",
+  usages: "[your question]",
   cooldowns: 5,
 };
 
-module.exports.run = async function ({ api, event }) {
-  const { threadID, messageID } = event;
+let userMemory = {}; // Store conversation memory for each user
+let isActive = false; // To enable or disable the bot
 
-  // List of countries with their primary timezones
-  const timezones = {
-    "𝐏𝐀𝐊𝐈𝐒𝐓𝐀𝐍": "Asia/Karachi",
-    "𝐈𝐍𝐃𝐀𝐈": "Asia/Kolkata",
-    "𝐔𝐒𝐀 𝐍𝐄𝐖 𝐘𝐎𝐑𝐊": "America/New_York",
-    "𝐔𝐒𝐀 𝐋𝐎𝐒 𝐀𝐍𝐆𝐄𝐋𝐄𝐒": "America/Los_Angeles",
-    "𝐔𝐍𝐈𝐓𝐄𝐃 𝐊𝐈𝐍𝐆𝐃𝐎𝐌": "Europe/London",
-    "𝐀𝐔𝐒𝐓𝐑𝐀𝐋𝐈𝐀 𝐒𝐘𝐃𝐍𝐄𝐘": "Australia/Sydney",
-    "𝐉𝐀𝐏𝐀𝐍": "Asia/Tokyo",
-    "𝐂𝐇𝐈𝐍𝐀": "Asia/Shanghai",
-    "𝐆𝐄𝐑𝐌𝐀𝐍𝐘": "Europe/Berlin",
-    "𝐅𝐑𝐀𝐍𝐂𝐄": "Europe/Paris",
-    "𝐒𝐎𝐔𝐓𝐇 𝐊𝐎𝐑𝐄𝐀": "Asia/Seoul",
-    "𝐁𝐑𝐀𝐙𝐈𝐋": "America/Sao_Paulo",
-    "𝐑𝐔𝐒𝐒𝐈𝐀": "Europe/Moscow",
-    "𝐒𝐎𝐔𝐓𝐇 𝐀𝐅𝐑𝐈𝐂𝐀": "Africa/Johannesburg",
-    "𝐔𝐀𝐄": "Asia/Dubai",
-    "𝐂𝐀𝐍𝐀𝐃𝐀 𝐓𝐎𝐑𝐎𝐍𝐓𝐎": "America/Toronto",
-    "𝐌𝐄𝐗𝐈𝐂𝐎": "America/Mexico_City",
-    "𝐒𝐈𝐍𝐆𝐀𝐏𝐎𝐑𝐄": "Asia/Singapore",
-    "𝐈𝐓𝐀𝐋𝐘": "Europe/Rome",
-    "𝐒𝐏𝐀𝐈𝐍": "Europe/Madrid",
-    "𝐓𝐔𝐑𝐊𝐄𝐘": "Europe/Istanbul",
-    "𝐒𝐀𝐔𝐃𝐈 𝐀𝐑𝐀𝐁𝐈𝐀": "Asia/Riyadh",
-    "𝐄𝐆𝐘𝐏𝐓": "Africa/Cairo",
-    "𝐏𝐇𝐈𝐋𝐈𝐏𝐏𝐈𝐍𝐄𝐒": "Asia/Manila",
-    "𝐍𝐄𝐖 𝐙𝐄𝐀𝐋𝐀𝐍𝐃": "Pacific/Auckland",
-    "𝐓𝐇𝐀𝐈𝐋𝐀𝐍𝐃": "Asia/Bangkok",
-    "𝐀𝐑𝐆𝐄𝐍𝐓𝐈𝐍𝐀": "America/Argentina/Buenos_Aires",
-  };
+module.exports.handleEvent = async function ({ api, event }) {
+  const { threadID, messageID, senderID, body, messageReply } = event;
 
-  let timeMessage = "🌍 **𝐂𝐔𝐑𝐑𝐄𝐍𝐓 𝐓𝐈𝐌𝐄 𝐈𝐍 𝐕𝐀𝐑𝐈𝐎𝐔𝐒 𝐂𝐎𝐔𝐍𝐓𝐑𝐈𝐄𝐒 𝐂𝐑𝐄𝐀𝐓𝐄𝐃 𝐁𝐘 𝐒𝐇𝐀𝐀𝐍 𝐊𝐇𝐀𝐍 𝐊**:\n\n";
+  // Check if the bot is active and the message is valid
+  if (!isActive || !body) return;
 
-  // Generate current time for each timezone
-  for (const [country, timezone] of Object.entries(timezones)) {
-    const now = moment.tz(timezone);
-    const currentTime = now.format("h:mm:ss A ⏰"); // Includes seconds
-    const currentDate = now.format("DD/MM/YYYY 📆");
-    const currentDay = now.format("dddd ⏳");
+  const userQuery = body.trim();
 
-    timeMessage += `❁ ━[ ${country} ]━ ❁\n\n`;
-    timeMessage += `✰ 𝗧𝗜𝗠𝗘 ➪ ${currentTime}\n`;
-    timeMessage += `✰ 𝗗𝗔𝗧𝗘 ➪ ${currentDate}\n`;
-    timeMessage += `✰ 𝗗𝗔𝗬 ➪ ${currentDay}\n\n`;
-    timeMessage += `❁ ━━━━━━━━━━━━━━ ❁\n\n`;
+  // Initialize memory for the user if not already present
+  if (!userMemory[senderID]) userMemory[senderID] = { history: [] };
+
+  // If the user is replying to the bot's message, continue the conversation
+  if (messageReply && messageReply.senderID === api.getCurrentUserID()) {
+    userMemory[senderID].history.push({ sender: "user", message: userQuery });
+  } else if (body.toLowerCase().includes("hercai")) {
+    // If "hercai" is mentioned, treat it as a new query
+    const cleanedQuery = body.toLowerCase().replace("hercai", "").trim();
+    userMemory[senderID].history.push({ sender: "user", message: cleanedQuery });
+  } else {
+    return;
   }
 
-  // Send the styled message with all times
-  return api.sendMessage(timeMessage, threadID, messageID);
+  // Take only the last 3 messages for context
+  const recentConversation = userMemory[senderID].history.slice(-3).map(
+    (msg) => `${msg.sender === "" ? "" : ""}: ${msg.message}`
+  ).join("\n");
+
+  const apiURL = `https://api-shankar-sir-s26r.onrender.com/api/ai?ask=${encodeURIComponent(recentConversation)}`;
+
+  try {
+    const response = await axios.get(apiURL);
+
+    if (response && response.data && response.data.reply) {
+      const botReply = response.data.reply;
+
+      // Add the bot's response to the conversation history
+      userMemory[senderID].history.push({ sender: "bot", message: botReply });
+
+      // Send the bot's reply to the user
+      return api.sendMessage(botReply, threadID, messageID);
+    } else {
+      return api.sendMessage(
+        "⚠️ Sorry! मैं आपका सवाल समझ नहीं पाया। कृपया फिर से प्रयास करें।",
+        threadID,
+        messageID
+      );
+    }
+  } catch (error) {
+    console.error("API Error:", error.response ? error.response.data : error.message);
+    return api.sendMessage(
+      "❌ API से जवाब लाने में समस्या हुई। कृपया बाद में प्रयास करें।",
+      threadID,
+      messageID
+    );
+  }
+};
+
+module.exports.run = async function ({ api, event, args }) {
+  const { threadID, messageID, senderID } = event;
+  const command = args[0] && args[0].toLowerCase();
+
+  if (command === "on") {
+    isActive = true;
+    return api.sendMessage("✅ Hercai bot अब सक्रिय है।", threadID, messageID);
+  } else if (command === "off") {
+    isActive = false;
+    return api.sendMessage("⚠️ Hercai bot अब निष्क्रिय है।", threadID, messageID);
+  } else if (command === "clear") {
+    // Clear history for all users
+    if (args[1] && args[1].toLowerCase() === "all") {
+      userMemory = {}; // Reset memory
+      return api.sendMessage("🧹 सभी उपयोगकर्ताओं की बातचीत की हिस्ट्री क्लियर कर दी गई है।", threadID, messageID);
+    }
+
+    // Clear history for the current user
+    if (userMemory[senderID]) {
+      delete userMemory[senderID];
+      return api.sendMessage("🧹 आपकी बातचीत की हिस्ट्री क्लियर कर दी गई है।", threadID, messageID);
+    } else {
+      return api.sendMessage("⚠️ आपकी कोई भी हिस्ट्री पहले से मौजूद नहीं है।", threadID, messageID);
+    }
+  }
+
+  const userQuery = args.join(" ");
+
+  if (!userQuery) {
+    return api.sendMessage("❓ कृपया अपना सवाल पूछें! Example: hercai कैसे हो?", threadID, messageID);
+  }
+
+  // Initialize memory for the user if not already present
+  if (!userMemory[senderID]) userMemory[senderID] = { history: [] };
+
+  // Add the user's query to their conversation history
+  userMemory[senderID].history.push({ sender: "user", message: userQuery });
+
+  // Take only the last 3 messages for context
+  const recentConversation = userMemory[senderID].history.slice(-20).map(
+    (msg) => `${msg.sender === "user" ? "User" : "Hercai"}: ${msg.message}`
+  ).join("\n");
+
+  const apiURL = `https://api-shankar-sir-s26r.onrender.com/api/ai?ask=${encodeURIComponent(recentConversation)}`;
+
+  try {
+    const response = await axios.get(apiURL);
+
+    if (response && response.data && response.data.reply) {
+      const botReply = response.data.reply;
+
+      // Add the bot's response to the conversation history
+      userMemory[senderID].history.push({ sender: "bot", message: botReply });
+
+      // Send the bot's reply to the user
+      return api.sendMessage(botReply, threadID, messageID);
+    } else {
+      return api.sendMessage(
+        "⚠️ Sorry! मैं आपका सवाल समझ नहीं पाया। कृपया फिर से प्रयास करें।",
+        threadID,
+        messageID
+      );
+    }
+  } catch (error) {
+    console.error("API Error:", error.response ? error.response.data : error.message);
+    return api.sendMessage(
+      "❌ API से जवाब लाने में समस्या हुई। कृपया बाद में प्रयास करें।",
+      threadID,
+      messageID
+    );
+  }
 };
