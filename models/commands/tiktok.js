@@ -1,112 +1,113 @@
-/** I am doing this coding with a lot of difficulty, please don't post it yourself¯\_(ツ)_/¯ **/
+
 module.exports.config = {
-  name: "tiktok",
+  name: "wtspcall",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "Md Nazrul Islam",
-  description: "HOT VEDIO",
-  commandCategory: "Hình ảnh",
-  usages: "sad vedio",
-  cooldowns: 5,
+  credits: "Khoa",
+  description: "It's a compound :>",
+  commandCategory: "fun",
+  usages: "",
   dependencies: {
-    "request":"",
-    "fs-extra":"",
-    "axios":""
-  }
-};
+        "axios": "",
+        "fs-extra": ""
+  },
+  cooldowns: 15
+}
 
-module.exports.run = async({api,event,args,client,Users,Threads,__GLOBAL,Currencies}) => {
-const axios = global.nodemodule["axios"];
-const request = global.nodemodule["request"];
-const fs = global.nodemodule["fs-extra"];
-   var hi = ["- 🥀THIS🥀 VIDEO MADE BY SHAAN KHAN K🥀-💓--"];
-  var know = hi[Math.floor(Math.random() * hi.length)];
-  var link = [
-   "https://i.imgur.com/kiWgfN9.mp4",
-    "https://i.imgur.com/pwEXNdW.mp4",
-    "https://i.imgur.com/P9cisKC.mp4",
-    "https://i.imgur.com/4Kzp6YS.mp4",
-    "https://i.imgur.com/2QPYmsV.mp4",
-    "https://i.imgur.com/9hFZq8C.mp4",
-    "https://i.imgur.com/Wzn2bCW.mp4",
-    "https://i.imgur.com/TS7ZS1r.mp4",
-    "https://i.imgur.com/kxGbsHO.mp4",
-    "https://i.imgur.com/cLGEG0i.mp4",
-    "https://i.imgur.com/WaT6RbV.mp4",
-    "https://i.imgur.com/rimJx5g.mp4",
-    "https://i.imgur.com/VvRmk2N.mp4",
-    "https://i.imgur.com/CwyJD8e.mp4",
-    "https://i.imgur.com/Drn0JeT.mp4",
-    "https://i.imgur.com/85p6Xbm.mp4",
-    "https://i.imgur.com/uEa9WkK.mp4",
-    "https://i.imgur.com/l5mJPL7.mp4",
-    "https://i.imgur.com/oFoP7WO.mp4",
-    "https://i.imgur.com/3VvdWnF.mp4",
-    "https://i.imgur.com/dXhuOEJ.mp4",
-    "https://i.imgur.com/S9sGpyg.mp4",
-    "https://i.imgur.com/Zih1E6I.mp4",
-    "https://i.imgur.com/9mqeHb8.mp4",
-    "https://i.imgur.com/fjdNYaZ.mp4",
-    "https://i.imgur.com/D9yoPwo.mp4",
-    "https://i.imgur.com/HT2W1rT.mp4",
-    "https://i.imgur.com/5yMCTj7.mp4",
-    "https://i.imgur.com/KIWOxsh.mp4",
-    "https://i.imgur.com/Cq2Hf1l.mp4",
-    "https://i.imgur.com/smQZBem.mp4",
-    "https://i.imgur.com/VPdRj9t.mp4",
-    "https://i.imgur.com/EmOAnOf.mp4",
-    "https://i.imgur.com/IPzQLtm.mp4",
-    "https://i.imgur.com/xIn1xwH.mp4",
-    "https://i.imgur.com/HaPtJWy.mp4",
-    "https://i.imgur.com/hHuHCit.mp4",
-    "https://i.imgur.com/ymSQI6K.mp4",
-    "https://i.imgur.com/2xg8T3z.mp4",
-    "https://i.imgur.com/pj2GTq1.mp4",
-"https://i.imgur.com/k8Nk0hk.mp4",
-"https://i.imgur.com/FaIml7d.mp4",
-"https://i.imgur.com/OkRgdhx.mp4",
-"https://i.imgur.com/Fuqw85P.mp4",
-"https://i.imgur.com/YSePMXk.mp4",
-"https://i.imgur.com/NulbpFV.mp4",
-"https://i.imgur.com/mvLoOEO.mp4",
-"https://i.imgur.com/9nMyQSa.mp4",
-"https://i.imgur.com/AS3w3XL.mp4",
-"https://i.imgur.com/le8LPPr.mp4",
-"https://i.imgur.com/VEW8i5R.mp4",
-"https://i.imgur.com/RZxOOAs.mp4",
-"https://i.imgur.com/TgqMPYe.mp4",
-"https://i.imgur.com/Pu8RrPM.mp4",
-"https://i.imgur.com/wODFzYz.mp4",
-"https://i.imgur.com/qSkqeyy.mp4",
-"https://i.imgur.com/b7SLRM3.mp4",
-"https://i.imgur.com/rZmJywH.mp4",
-"https://i.imgur.com/09Rj19K.mp4",
-"https://i.imgur.com/yhR6FZ6.mp4",
-"https://i.imgur.com/uQmqHiN.mp4",
-"https://i.imgur.com/wObBUEl.mp4",
-"https://i.imgur.com/vHHxvqs.mp4",
-"https://i.imgur.com/iBE1tSd.mp4",
-"https://i.imgur.com/Nyk31E1.mp4",
-"https://i.imgur.com/j4y9n8i.mp4",
-"https://i.imgur.com/nLfS0yV.mp4",
-"https://i.imgur.com/c4KjwW2.mp4",
-"https://i.imgur.com/AIdtot3.mp4",
-"https://i.imgur.com/wotdbfx.mp4",
-"https://i.imgur.com/sP9oOls.mp4",
-"https://i.imgur.com/pAQsyQR.mp4",
-"https://i.imgur.com/NZKU2cj.mp4",
-"https://i.imgur.com/yFq4SJH.mp4",
-"https://i.imgur.com/wBKwnIP.mp4",
-"https://i.imgur.com/z5ZmOWD.mp4",
-"https://i.imgur.com/RzZZmjX.mp4",
-"https://i.imgur.com/aVXg9xA.mp4",
-"https://i.imgur.com/eMfWK8B.mp4",
-"https://i.imgur.com/i6a99Ip.mp4",
-"https://i.imgur.com/mC9QWRk.mp4",
-"https://i.imgur.com/b6T2TQ4.mp4",
-"https://i.imgur.com/FrDJ8ML.mp4",
-    
-];
-     var callback = () => api.sendMessage({body:`「 ${know} 」`,attachment: fs.createReadStream(__dirname + "/cache/15.mp4")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/15.mp4"));    
-      return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/15.mp4")).on("close",() => callback());
-   };
+module.exports.run = async function ({ args, Users, Threads, api, event, Currencies }) {
+  const { loadImage, createCanvas } = require("canvas");
+  const fs = global.nodemodule["fs-extra"];
+  const axios = global.nodemodule["axios"];
+  let pathImg = __dirname + "/cache/background.png";
+  let pathAvt1 = __dirname + "/cache/Avtmot.png";
+  let pathAvt2 = __dirname + "/cache/Avthai.png";
+  
+  var id1 = event.senderID;
+  var name1 = await Users.getNameUser(id1);
+  var ThreadInfo = await api.getThreadInfo(event.threadID);
+  var all = ThreadInfo.userInfo
+  for (let c of all) {
+    if (c.id == id1) var gender1 = c.gender;
+  };
+  const botID = api.getCurrentUserID();
+  let ungvien = [];
+  if(gender1 == "FEMALE"){
+    for (let u of all) {
+      if (u.gender == "MALE") {
+      if (u.id !== id1 && u.id !== botID) ungvien.push(u.id)
+      }
+    }
+  }
+  else if(gender1 == "MALE"){
+    for (let u of all) {
+      if (u.gender == "FEMALE") {
+      if (u.id !== id1 && u.id !== botID) ungvien.push(u.id)
+      }
+    }
+  }
+  else {
+  for (let u of all) {
+      if (u.id !== id1 && u.id !== botID) ungvien.push(u.id)
+    }
+  }
+  var id2 = ungvien[Math.floor(Math.random() * ungvien.length)];
+  var name2 = await Users.getNameUser(id2);
+  var rd1 = Math.floor(Math.random() * 100) + 1;
+  var cc = ["0", "-1", "99,99", "-99", "-100", "101", "0,01"];
+  var rd2 = cc[Math.floor(Math.random() * cc.length)];
+  var djtme = [`${rd1}`, `${rd1}`, `${rd1}`, `${rd1}`, `${rd1}`, `${rd2}`, `${rd1}`, `${rd1}`, `${rd1}`, `${rd1}`];
+  
+  var tile = djtme[Math.floor(Math.random() * djtme.length)];
+
+  var background = [
+  "https://i.pinimg.com/originals/cf/45/85/cf4585e0dc8ec7cacd9a3510af82ea49.jpg",
+  "https://i.pinimg.com/originals/cf/45/85/cf4585e0dc8ec7cacd9a3510af82ea49.jpg",
+  "https://i.pinimg.com/originals/cf/45/85/cf4585e0dc8ec7cacd9a3510af82ea49.jpg"
+  ];
+  var rd = background[Math.floor(Math.random() * background.length)];
+  
+  let getAvtmot = (
+    await axios.get(
+      `https://graph.facebook.com/${id1}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`,
+      { responseType: "arraybuffer" }
+    )
+  ).data;
+  fs.writeFileSync(pathAvt1, Buffer.from(getAvtmot, "utf-8"));
+
+  let getAvthai = (
+    await axios.get(
+      `https://graph.facebook.com/${id2}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`,
+      { responseType: "arraybuffer" }
+    )
+  ).data;
+  fs.writeFileSync(pathAvt2, Buffer.from(getAvthai, "utf-8"));
+
+  let getbackground = (
+    await axios.get(`${rd}`, {
+      responseType: "arraybuffer",
+    })
+  ).data;
+  fs.writeFileSync(pathImg, Buffer.from(getbackground, "utf-8"));
+
+  let baseImage = await loadImage(pathImg);
+  let baseAvt1 = await loadImage(pathAvt1);
+  let baseAvt2 = await loadImage(pathAvt2);
+  let canvas = createCanvas(baseImage.width, baseImage.height);
+  let ctx = canvas.getContext("2d");
+  ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(baseAvt1, 1, 270, 585, 585);
+  ctx.drawImage(baseAvt2, 560, 263, 585, 585);
+  const imageBuffer = canvas.toBuffer();
+  fs.writeFileSync(pathImg, imageBuffer);
+  fs.removeSync(pathAvt1);
+  fs.removeSync(pathAvt2);
+  return api.sendMessage({ body: `Call Secreen Shot,\n${name1} Aur ${name2} ka\nDono Call Py ${tile}% Happy Thy`,
+            mentions: [{
+          tag: `${name2}`,
+          id: id2
+        }], attachment: fs.createReadStream(pathImg) },
+      event.threadID,
+      () => fs.unlinkSync(pathImg),
+      event.messageID);
+      }
+  
