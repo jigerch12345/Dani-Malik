@@ -1,99 +1,74 @@
 module.exports.config = {
-	name: "thread",
-	version: "0.0.3",
-	hasPermssion: 2,
-	credits: "ARIF-BABU",
-	description: "Ban or unblock a group",
-	commandCategory: "system",
-	usages: "[unban/ban/search] [ID or text]",
-	cooldowns: 5
+    name: "wife",
+    version: "7.3.1",
+    hasPermssion: 0,
+    credits: " AZIZ",///don't change my Credit Coz i Edit 
+    description: "Get Pair From Mention",
+    commandCategory: "img",
+    usages: "[@mention]",
+    cooldowns: 5,
+    dependencies: {
+        "axios": "",
+        "fs-extra": "",
+        "path": "",
+        "jimp": ""
+    }
 };
 
-module.exports.handleReaction = async ({ event, api, Threads, handleReaction }) => {
-	if (parseInt(event.userID) !== parseInt(handleReaction.author)) return;
-	switch (handleReaction.type) {
-		case "ban": {
-			const data = (await Threads.getData(handleReaction.target)).data || {};
-			data.banned = 1;
-			await Threads.setData(handleReaction.target, { data });
-			global.data.threadBanned.set(parseInt(handleReaction.target), 1);
-			api.sendMessage(`[${handleReaction.target}] Successfully granted!`, event.threadID, () => api.unsendMessage(handleReaction.messageID));
-			break;
-		}
-		case "unban": {
-			const data = (await Threads.getData(handleReaction.target)).data || {};
-			data.banned = 0;
-			await Threads.setData(handleReaction.target, { data });
-			global.data.threadBanned.delete(parseInt(handleReaction.target), 1);
-			api.sendMessage(`[${handleReaction.target}] Successfully unbanned`, event.threadID, () => api.unsendMessage(handleReaction.messageID));
-			break;
-		}
-		default:
-			break;
-	}
+module.exports.onLoad = async() => {
+    const { resolve } = global.nodemodule["path"];
+    const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
+    const { downloadFile } = global.utils;
+    const dirMaterial = __dirname + `/cache/canvas/`;
+    const path = resolve(__dirname, 'cache/canvas', 'love.jpeg');
+    if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
+    if (!existsSync(path)) await downloadFile("https://i.imgur.com/tVi3R6t.jpg", path);
 }
 
-module.exports.run = async ({ event, api, args, Threads }) => {
-    let content = args.slice(1, args.length);
-	switch (args[0]) {
-		case "ban": {
-			if (content.length == 0) return api.sendMessage("You need to enter the thread ID you want to ban!", event.threadID);
-			for (let idThread of content) {
-				idThread = parseInt(idThread);
-				if (isNaN(idThread)) return api.sendMessage(`[${idThread}] not IDthread!`, event.threadID);
-				let dataThread = (await Threads.getData(idThread.toString()));
-				if (!dataThread) return api.sendMessage(`[${idThread}] thread does not exist in database!`, event.threadID);
-				if (dataThread.banned) return api.sendMessage(`[${idThread}] Already banned`, event.threadID);
-				return api.sendMessage(`[${idThread}] Do you want to ban this thread?\n\nPlease react to this message to ban!`, event.threadID, (error, info) => {
-					global.client.handleReaction.push({
-						name: this.config.name,
-						messageID: info.messageID,
-						author: event.senderID,
-						type: "ban",
-						target: idThread
-					});
-				})
-			}
-			break;
-		}
-		case "unban": {
-			if (content.length == 0) return api.sendMessage("You need to enter the thread ID you want to ban!", event.threadID);
-			for (let idThread of content) {
-				idThread = parseInt(idThread);
-				if (isNaN(idThread)) return api.sendMessage(`[${idThread}] not IDthread!`, event.threadID);
-				let dataThread = (await Threads.getData(idThread)).data;
-				if (!dataThread) return api.sendMessage(`[${idThread}] thread does not exist in the database!`, event.threadID);
-				if (dataThread.banned != 1) return api.sendMessage(`[${idThread}] Not banned before`, event.threadID);
-				return api.sendMessage(`[${idThread}] You want to unban this thread ?\n\nPlease react to this message to ban!`, event.threadID, (error, info) => {
-					global.client.handleReaction.push({
-						name: this.config.name,
-						messageID: info.messageID,
-						author: event.senderID,
-						type: "unban",
-						target: idThread
-					});
-				})
-			}
-			break;
-		}
-		case "search": {
-			let contentJoin = content.join(" ");
-			let getThreads =  (await Threads.getAll(['threadID', 'name'])).filter(item => !!item.name);
-			let matchThreads = [], a = '', b = 0;
-			getThreads.forEach(i => {
-				if (i.name.toLowerCase().includes(contentJoin.toLowerCase())) {
-					matchThreads.push({
-						name: i.name,
-						id: i.threadID
-					});
-				}
-			});
-			matchThreads.forEach(i => a += `\n${b += 1}. ${i.name} - ${i.id}`);
-			(matchThreads.length > 0) ? api.sendMessage(`Here is the match: \n${a}`, event.threadID) : api.sendMessage("No results found based on your search!", event.threadID);
-			break;
-		}
-		default: {
-			return global.utils.throwError(this.config.name, event.threadID, event.messageID)
-		}
-	}
+async function makeImage({ one, two }) {
+    const fs = global.nodemodule["fs-extra"];
+    const path = global.nodemodule["path"];
+    const axios = global.nodemodule["axios"]; 
+    const jimp = global.nodemodule["jimp"];
+    const __root = path.resolve(__dirname, "cache", "canvas");
+
+    let batgiam_img = await jimp.read(__root + "/love.jpeg");
+    let pathImg = __root + `/batman${one}_${two}.jpeg`;
+    let avatarOne = __root + `/avt_${one}.jpeg`;
+    let avatarTwo = __root + `/avt_${two}.jpeg`;
+    
+    let getAvatarOne = (await axios.get(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+    fs.writeFileSync(avatarOne, Buffer.from(getAvatarOne, 'utf-8'));
+    
+    let getAvatarTwo = (await axios.get(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+    fs.writeFileSync(avatarTwo, Buffer.from(getAvatarTwo, 'utf-8'));
+    
+    let circleOne = await jimp.read(await circle(avatarOne));
+    let circleTwo = await jimp.read(await circle(avatarTwo));
+    batgiam_img.composite(circleOne.resize(230, 230), 40, 90).composite(circleTwo.resize(230, 230), 430, 90);
+    
+    let raw = await batgiam_img.getBufferAsync("image/jpeg");
+    
+    fs.writeFileSync(pathImg, raw);
+    fs.unlinkSync(avatarOne);
+    fs.unlinkSync(avatarTwo);
+    
+    return pathImg;
+}
+async function circle(image) {
+    const jimp = require("jimp");
+    image = await jimp.read(image);
+    image.circle();
+    return await image.getBufferAsync("image/png");
+}
+
+module.exports.run = async function ({ event, api, args }) {    
+    const fs = global.nodemodule["fs-extra"];
+    const { threadID, messageID, senderID } = event;
+    const mention = Object.keys(event.mentions);
+    if (!mention[0]) return api.sendMessage("Please mention 1 person.", threadID, messageID);
+    else {
+        const one = senderID, two = mention[0];
+        return makeImage({ one, two }).then(path => api.sendMessage({ body: "`𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐩𝐚𝐢𝐫𝐢𝐧𝐠\n  ༺𝐘𝐄 𝐋𝐎 𝐀𝐏𝐊𝐈 𝐖𝐈𝐅𝐄 𝐎𝐑 𝐊𝐎𝐈 𝐇𝐔𝐊𝐀𝐌༻\n━━━━━━━━━━━━━━━━\n*𝐄𝐃𝐈𝐓𝐎𝐑 𝐃𝐀𝐍𝐈 𝐌𝐀𝐋𝐈𝐊", attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
+    }
 }
